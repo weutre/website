@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Heuristic Digital — Finance Reinvented</title>
+  <meta name="description" content="AI solutions for financial executives. Management reporting, KPI dashboards, and planning & control automation." />
+  <style>
+    :root {
+      --green: #A8DF8E;
+      --black: #050505;
+      --muted: rgba(0,0,0,.62);
+      --line: rgba(0,0,0,.08);
+      --soft: #f8fafc;
+      --radius: 28px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--black);
+      background: #fff;
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      padding: 24px 0;
+      background: rgba(255,255,255,.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(0,0,0,.04);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 900; letter-spacing: -0.04em; }
+    .brand-mark {
+      width: 42px; height: 42px; border-radius: 14px;
+      background: var(--green);
+      display: grid; place-items: center;
+      font-size: 24px; font-weight: 900;
+      box-shadow: 0 14px 30px rgba(168,223,142,.28);
+    }
+    .brand span:last-child { font-size: 19px; }
+    .brand .dim { color: rgba(0,0,0,.54); }
+    .nav-links { display: flex; align-items: center; gap: 34px; }
+    .nav-links a { font-size: 14px; font-weight: 800; color: rgba(0,0,0,.58); transition: .2s; }
+    .nav-links a:hover { color: #000; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 15px 24px;
+      border-radius: 999px;
+      font-weight: 900;
+      border: 2px solid transparent;
+      transition: .22s ease;
+      cursor: pointer;
+    }
+    .btn-primary { background: var(--green); color: #000; box-shadow: 0 18px 40px rgba(168,223,142,.28); }
+    .btn-primary:hover { transform: translateY(-2px); background: #000; color: #fff; }
+    .btn-dark { background: #000; color: #fff; padding: 12px 20px; }
+    .btn-dark:hover { background: var(--green); color: #000; }
+    .btn-outline { border-color: #000; background: #fff; color: #000; }
+    .btn-outline:hover { background: #000; color: #fff; transform: translateY(-2px); }
+    .mobile-toggle { display: none; border: 0; background: #f3f4f6; border-radius: 12px; padding: 10px; font-size: 24px; }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 190px 0 125px;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; right: 0;
+      width: 68%; height: 100%;
+      background: linear-gradient(135deg, rgba(168,223,142,.18), transparent 64%);
+      border-bottom-left-radius: 220px;
+      z-index: -1;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(168,223,142,.14);
+      border: 1px solid rgba(168,223,142,.36);
+      border-radius: 999px;
+      padding: 8px 14px;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 30px;
+    }
+    h1 {
+      margin: 0 0 34px;
+      max-width: 920px;
+      font-size: clamp(50px, 8vw, 104px);
+      line-height: .94;
+      letter-spacing: -0.075em;
+      font-weight: 950;
+    }
+    .gradient-text {
+      background: linear-gradient(90deg, #000, #707784);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero p {
+      max-width: 690px;
+      color: var(--muted);
+      font-size: clamp(20px, 2.1vw, 26px);
+      font-weight: 600;
+      margin: 0 0 42px;
+    }
+    .underline { color: #000; font-weight: 900; text-decoration: underline; text-decoration-color: var(--green); text-decoration-thickness: 5px; text-underline-offset: 5px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 18px; }
+
+    section { padding: 110px 0; }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .label {
+      display: inline-block;
+      background: var(--green);
+      padding: 6px 12px;
+      text-transform: uppercase;
+      letter-spacing: .25em;
+      font-size: 12px;
+      font-weight: 950;
+      margin-bottom: 18px;
+    }
+    h2 { margin: 0; font-size: clamp(34px, 5vw, 58px); letter-spacing: -0.055em; line-height: 1; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 40px;
+      padding: 38px;
+      transition: .25s ease;
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 36px 70px rgba(0,0,0,.08); }
+    .icon {
+      width: 72px; height: 72px;
+      display: grid; place-items: center;
+      border-radius: 24px;
+      background: rgba(168,223,142,.14);
+      font-size: 30px;
+      margin-bottom: 28px;
+    }
+    .card:hover .icon { background: var(--green); }
+    .card h3 { margin: 0 0 16px; font-size: 24px; letter-spacing: -0.03em; }
+    .card p { margin: 0 0 24px; color: var(--muted); font-size: 17px; }
+    .card .link { font-weight: 900; border-bottom: 3px solid var(--green); display: inline-flex; align-items: center; gap: 6px; }
+
+    .reviews { background: var(--soft); }
+    .reviews-top { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 48px; }
+    .reviews-top .label { background: transparent; padding-left: 0; margin-bottom: 14px; }
+    .metric {
+      background: #000; color: #fff; border-radius: 28px; padding: 24px 28px;
+      display: flex; align-items: center; gap: 18px; min-width: 240px;
+    }
+    .metric strong { color: var(--green); font-size: 42px; line-height: 1; }
+    .metric span { color: rgba(255,255,255,.6); font-weight: 900; text-transform: uppercase; letter-spacing: .12em; font-size: 12px; }
+    .quote-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+    .quote-card { background: #fff; border-radius: 42px; padding: 42px; border: 1px solid var(--line); position: relative; }
+    .quote-mark { position: absolute; top: 26px; right: 36px; color: rgba(168,223,142,.65); font-size: 64px; line-height: 1; }
+    .quote-card blockquote { margin: 0 0 34px; font-size: 22px; font-weight: 650; color: rgba(0,0,0,.75); font-style: italic; }
+    .byline { display: flex; align-items: center; gap: 14px; }
+    .bar { width: 44px; height: 4px; background: var(--green); }
+    .byline strong { display: block; font-size: 13px; text-transform: uppercase; letter-spacing: .1em; }
+    .byline small { display: block; color: rgba(0,0,0,.45); font-weight: 900; text-transform: uppercase; letter-spacing: .14em; }
+
+    .about { background: #000; color: #fff; position: relative; overflow: hidden; }
+    .about::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 40%, rgba(168,223,142,.15), transparent 50%); }
+    .about .container { position: relative; z-index: 1; }
+    .about-inner { max-width: 880px; }
+    .dark-label { display: inline-block; padding: 8px 13px; border-radius: 12px; background: rgba(168,223,142,.11); border: 1px solid rgba(168,223,142,.3); color: var(--green); text-transform: uppercase; letter-spacing: .16em; font-weight: 900; font-size: 12px; margin-bottom: 28px; }
+    .about h2 { font-size: clamp(42px, 6vw, 78px); }
+    .about h2 span { color: var(--green); }
+    .about p.lead { color: rgba(255,255,255,.64); font-size: clamp(20px, 2.4vw, 28px); max-width: 780px; margin: 34px 0 58px; }
+    .features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 44px; }
+    .feature { display: flex; gap: 20px; }
+    .feature-dot { width: 56px; height: 56px; border-radius: 20px; border: 1px solid rgba(168,223,142,.28); background: rgba(168,223,142,.1); display: grid; place-items: center; flex: none; }
+    .feature-dot::after { content: ""; width: 13px; height: 13px; border-radius: 50%; background: var(--green); }
+    .feature h3 { margin: 0 0 8px; font-size: 23px; }
+    .feature p { margin: 0; color: rgba(255,255,255,.45); font-size: 18px; }
+    .about-actions { margin-top: 70px; padding-top: 34px; border-top: 1px solid rgba(255,255,255,.1); display: flex; flex-wrap: wrap; align-items: center; gap: 32px; }
+    .badge { color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .18em; font-weight: 900; font-size: 12px; }
+    .badge b { color: var(--green); }
+
+    footer { padding: 110px 0 44px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 58px; margin-bottom: 70px; }
+    .footer-logo { display: inline-flex; align-items: center; gap: 12px; font-weight: 950; text-transform: uppercase; letter-spacing: -0.04em; font-size: 24px; margin-bottom: 24px; }
+    .footer-logo .brand-mark { background: #000; color: var(--green); width: 40px; height: 40px; font-size: 22px; }
+    footer p { color: rgba(0,0,0,.52); max-width: 430px; font-size: 17px; }
+    .socials { display: flex; gap: 14px; margin-top: 28px; }
+    .socials a { width: 52px; height: 52px; border-radius: 18px; background: rgba(0,0,0,.05); display: grid; place-items: center; font-weight: 900; transition: .2s; }
+    .socials a:hover { background: var(--green); transform: translateY(-2px); }
+    footer h4 { text-transform: uppercase; letter-spacing: .15em; font-size: 13px; margin: 0 0 24px; }
+    .contact-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 18px; color: rgba(0,0,0,.62); font-weight: 650; }
+    .association { background: rgba(0,0,0,.04); border: 1px solid rgba(0,0,0,.05); border-radius: 30px; padding: 24px; }
+    .association small { color: rgba(0,0,0,.42); display: block; margin-bottom: 8px; }
+    .association strong { font-size: 22px; }
+    .bottom { border-top: 1px solid rgba(0,0,0,.06); padding-top: 30px; display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; color: rgba(0,0,0,.42); text-transform: uppercase; letter-spacing: .18em; font-size: 11px; font-weight: 900; }
+    .bottom nav { display: flex; gap: 28px; }
+
+    @media (max-width: 820px) {
+      .nav-links { display: none; position: absolute; top: 78px; left: 20px; right: 20px; background: #fff; border: 1px solid var(--line); border-radius: 24px; padding: 22px; box-shadow: 0 30px 60px rgba(0,0,0,.12); flex-direction: column; align-items: stretch; gap: 18px; }
+      .nav-links.open { display: flex; }
+      .mobile-toggle { display: block; }
+      .hero { padding-top: 150px; }
+      .cards, .quote-grid, .features, .footer-grid { grid-template-columns: 1fr; }
+      .reviews-top { align-items: start; flex-direction: column; }
+      .hero-actions .btn { width: 100%; border-radius: 22px; padding: 18px 22px; }
+      .brand span:last-child { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="brand" aria-label="Heuristic Digital home">
+        <span class="brand-mark">H</span>
+        <span>HEURISTIC <span class="dim">DIGITAL</span></span>
+      </a>
+      <button class="mobile-toggle" aria-label="Open menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+      <nav class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#reviews">Results</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact" class="btn btn-dark">Contact Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="eyebrow">⚡ Finance Reinvented</div>
+        <h1>AI Solutions for <br><span class="gradient-text">Financial Executives.</span></h1>
+        <p>Financial reporting eats weeks of time. We deliver management reports and KPI dashboards in <span class="underline">days, not months</span>.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#services">View Our Services →</a>
+          <a class="btn btn-outline" href="#contact">Talk to an Expert</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-header">
+          <span class="label">Capabilities</span>
+          <h2>Optimizing Your Reporting Engine</h2>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <div class="icon">▦</div>
+            <h3>Management Reporting</h3>
+            <p>We work alongside our clients to bring AI into their existing reporting process. What used to take weeks gets done faster, without changing how their team works.</p>
+            <span class="link">Explore Strategy ›</span>
+          </article>
+          <article class="card">
+            <div class="icon">◔</div>
+            <h3>KPI Dashboards</h3>
+            <p>We identify where AI can take over the manual work in building and maintaining KPI dashboards. Their team stays in control, with far less effort.</p>
+            <span class="link">Explore Strategy ›</span>
+          </article>
+          <article class="card">
+            <div class="icon">↻</div>
+            <h3>Planning & Control Cycle</h3>
+            <p>We guide our clients through the full P&amp;C cycle, finding where AI cuts the most time. The process stays theirs, delivered in significantly less time.</p>
+            <span class="link">Explore Strategy ›</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews" class="reviews">
+      <div class="container">
+        <div class="reviews-top">
+          <div>
+            <span class="label">Market Impact</span>
+            <h2>What Leaders Say.</h2>
+          </div>
+          <div class="metric"><strong>98%</strong><span>Client Retention &<br>System Accuracy</span></div>
+        </div>
+        <div class="quote-grid">
+          <article class="quote-card">
+            <span class="quote-mark">“</span>
+            <blockquote>HDC transformed our quarterly reporting. We moved from a 14-day manual process to a 48-hour automated cycle. The accuracy is unparalleled.</blockquote>
+            <div class="byline"><span class="bar"></span><div><strong>Director of Finance</strong><small>European Logistics Group</small></div></div>
+          </article>
+          <article class="quote-card">
+            <span class="quote-mark">“</span>
+            <blockquote>The integration was seamless. Unlike other consultants, HDC actually understood our existing workflows and enhanced them rather than replacing them.</blockquote>
+            <div class="byline"><span class="bar"></span><div><strong>CFO</strong><small>Tech Scale-up</small></div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="container">
+        <div class="about-inner">
+          <span class="dark-label">Our Heritage</span>
+          <h2>Intelligence,<br><span>Delivered from Delft.</span></h2>
+          <p class="lead">Based in the technological heart of the Netherlands, we combine academic rigor with practical AI applications to build transparent, high-performance financial systems.</p>
+          <div class="features">
+            <article class="feature"><span class="feature-dot"></span><div><h3>Faster Delivery</h3><p>Weeks reduced to days via automated ingestion and AI mapping.</p></div></article>
+            <article class="feature"><span class="feature-dot"></span><div><h3>Team Empowerment</h3><p>Enhancing existing workflows without replacing your core experts.</p></div></article>
+          </div>
+          <div class="about-actions">
+            <a class="btn btn-primary" href="#contact">Contact Our Experts →</a>
+            <span class="badge"><b>✓</b> EU AI Alliance Member</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="footer-logo" href="#"><span class="brand-mark">H</span>Heuristic Digital</a>
+          <p>Transforming financial management through precision AI integration. Leading the shift from data collection to data strategy.</p>
+          <div class="socials"><a href="https://nl.linkedin.com/company/hdc-ai" aria-label="LinkedIn">in</a><a href="mailto:info@hdc-ai.com" aria-label="Email">✉</a></div>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul class="contact-list"><li>✉ info@hdc-ai.com</li><li>⌖ Delft, Netherlands</li></ul>
+        </div>
+        <div>
+          <h4>Association</h4>
+          <div class="association"><small>Official Member of the</small><strong>EU AI Alliance</strong></div>
+        </div>
+      </div>
+      <div class="bottom"><span>© 2024 Heuristic Digital Consulting • All rights reserved</span><nav><a href="#">Privacy</a><a href="#">Terms</a></nav></div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.remove('open');
+    }));
+  </script>
+</body>
+</html>
